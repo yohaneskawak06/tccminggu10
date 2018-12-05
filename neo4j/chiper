@@ -1,0 +1,18 @@
+CREATE (dina:Person {name:"Dina"})-[:IS_FRIEND_OF]->(gandi:Person {name:"Gandi"}),
+(dina)-[:IS_FRIEND_OF]->(shinta:Person {name:"Shinta"}),
+(dina)-[:IS_FRIEND_OF]->(siska:Person {name:"Siska"})
+
+CREATE (lotek:Cuisine {name:"Lotek"}), (jgj:City {name:"Jogja"}),
+(lotekbuani:Restaurant {name:"Lotek Bu Ani"})-[:SERVES]->(lotek),(lotekbuani)-[:LOCATED_IN]->(jgj),
+(shinta)-[:LIKES]->(lotekbuani),
+(siska)-[:LIKES]->(lotekbuani),
+(sotomadura:Restaurant {name:"Soto Madura Cak Mul"})-[:SERVES]->(lotek),(soto)-[:LOCATED_IN]->(jgj),
+(siska)-[:LIKES]->(soto)
+
+MATCH (n) RETURN n LIMIT 25
+
+MATCH (dina:Person {name:"Dina"})-[:IS_FRIEND_OF]-(person)
+RETURN person.name
+
+MATCH (jgj:City {name:"Jogja"})<-[:LOCATED_IN]-(restaurant)-[:SERVES]->(cusine)
+RETURN jgj, restaurant, cusine
